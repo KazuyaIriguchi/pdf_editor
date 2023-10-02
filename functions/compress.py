@@ -1,9 +1,10 @@
 import subprocess
 import argparse
 import platform
+import shutil
 
 
-GHOSTSCRIPT_CMD = {"Windows": "gswin64c.exe", "Linux": "gs"}
+GHOSTSCRIPT_CMD = {"Windows": "gswin64c.exe_", "Linux": "gs"}
 
 
 def get_gs_path() -> str:
@@ -12,21 +13,22 @@ def get_gs_path() -> str:
     Returns:
         str: パス
     """
-    return GHOSTSCRIPT_CMD[platform.system()]
+    return shutil.which(GHOSTSCRIPT_CMD.get(platform.system()))
 
 
-def compress(input_file: str, output_name: str):
+def compress(input_file: str, output_name: str, command: str):
     """圧縮処理
 
     Args:
         input_file (str): 入力ファイル
         output_name (str): 出力ファイル名
+        command (str): Ghostscriptのコマンド
     """
     print("Compressing...")
 
     subprocess.run(
         [
-            get_gs_path(),
+            command,
             "-sDEVICE=pdfwrite",  # 出力フォーマットとしてPDFを指定
             "-dCompatibilityLevel=1.4",  # 生成されるPDFをのバージョンを指定
             "-dPDFSETTINGS=/ebook",  # PDFの品質と圧縮レベルを指定

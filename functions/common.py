@@ -1,5 +1,6 @@
 import os
 import io
+import platform
 
 
 def save_as_pdf_from_bytes(pdf_bytes: io.BytesIO, filename: str):
@@ -33,3 +34,12 @@ def remove_file(filename: str):
         filename (str): ファイル名
     """
     os.remove(filename)
+
+
+def detect_os() -> str:
+    """OSを検出
+
+    Returns:
+        str: OS名
+    """
+    return platform.system()
