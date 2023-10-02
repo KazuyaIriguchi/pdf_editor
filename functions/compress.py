@@ -4,7 +4,7 @@ import platform
 import shutil
 
 
-GHOSTSCRIPT_CMD = {"Windows": "gswin64c.exe_", "Linux": "gs"}
+GHOSTSCRIPT_CMD = {"Windows": "gswin64c.exe", "Linux": "gs"}
 
 
 def get_gs_path() -> str:
