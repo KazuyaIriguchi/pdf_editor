@@ -8,6 +8,12 @@ PDFをあれこれ編集するWebUI
 
 ![compressor_fig](./docs/01_compressor_fig.png)
 
+## Sort
+
+PDFのページを並び替えて出力する
+
+![sort_fig](./docs/02_sort_fig.png)
+
 ## Other
 
 coming soon!
