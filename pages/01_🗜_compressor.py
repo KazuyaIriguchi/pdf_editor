@@ -7,7 +7,6 @@ from functions.compress import compress, get_gs_path
 from functions.common import (
     save_as_pdf_from_bytes,
     load_pdf_as_bytes,
-    remove_file,
     detect_os,
 )
 
@@ -42,7 +41,7 @@ else:
             with tempfile.TemporaryDirectory() as tmpdirname:
                 compressed_info = []
                 for i, uploaded_file in enumerate(uploaded_files):
-                    uploaded_pdf = os.path.join(tmpdirname, f"uploaded.pdf")
+                    uploaded_pdf = os.path.join(tmpdirname, "uploaded.pdf")
                     compressed_pdf = os.path.join(tmpdirname, "compressed.pdf")
                     save_as_pdf_from_bytes(uploaded_file.read(), uploaded_pdf)
                     compress(uploaded_pdf, compressed_pdf, command)
@@ -52,8 +51,6 @@ else:
                             "data": load_pdf_as_bytes(compressed_pdf),
                         }
                     )
-                    remove_file(uploaded_pdf)
-                    remove_file(compressed_pdf)
             st.success("Done!")
             for info in compressed_info:
                 st.download_button(

@@ -5,10 +5,10 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Python: 現在のファイル",
+      "name": "WebUI",
       "type": "python",
       "request": "launch",
-      "program": ".venv/Scripts/streamlit.exe",
+      "program": "${workspaceFolder}/.venv/Scripts/streamlit.exe",
       "args": [
         "run",
         "00_🔝_top.py",
@@ -16,7 +16,10 @@
         "true"
       ],
       "console": "integratedTerminal",
-      "justMyCode": true
+      "justMyCode": true,
+      "env": {
+        "PYTHONPATH": "${workspaceFolder}",
+      }
     }
   ]
 }

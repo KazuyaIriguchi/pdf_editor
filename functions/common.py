@@ -1,9 +1,11 @@
 import os
 import io
 import platform
+import zipfile
 
 from pypdf import PdfReader
 from pdf2image import convert_from_bytes
+from PIL import Image
 
 
 def save_as_pdf_from_bytes(pdf_bytes: io.BytesIO, filename: str):
@@ -82,3 +84,28 @@ def check_ext_name(filename: str, ext: str = ".pdf") -> bool:
         bool: 拡張子名がextならTrue
     """
     return filename.endswith(ext)
+
+
+def image_to_bytes(image: Image.Image) -> io.BytesIO:
+    img_byte_io = io.BytesIO()
+    image.save(img_byte_io, format="PNG")
+    img_byte_io.seek(0)
+    return img_byte_io
+
+
+def create_zip_from_dict(images: dict) -> io.BytesIO:
+    """画像のリストをZIPファイルに変換
+
+    Args:
+        images (list): 画像のリスト
+
+    Returns:
+        io.BytesIO: ZIPファイルのバイナリデータ
+    """
+    zip_byte_io = io.BytesIO()
+    with zipfile.ZipFile(zip_byte_io, "w") as zf:
+        for i, image in images.items():
+            image_byte_io = image_to_bytes(image)
+            zf.writestr(f"page_{i+1}.png", image_byte_io.getvalue())
+    zip_byte_io.seek(0)
+    return zip_byte_io
